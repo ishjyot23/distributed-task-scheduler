@@ -1,0 +1,19 @@
+services:
+  - type: web
+    name: distributed-task-scheduler-grpc
+    runtime: docker
+    plan: free
+    region: singapore
+    autoDeployTrigger: commit
+    healthCheckPath: /_stcore/health
+    envVars:
+      - key: WORKER_COUNT
+        value: "3"
+      - key: WORKER_CAPACITY
+        value: "2"
+      - key: TASK_DB_PATH
+        value: /app/data/tasks.db
+      - key: HEARTBEAT_TIMEOUT_SECONDS
+        value: "12"
+      - key: MAX_TASK_ATTEMPTS
+        value: "3"
